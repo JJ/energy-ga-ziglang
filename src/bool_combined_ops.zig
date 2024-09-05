@@ -1,14 +1,13 @@
 const std = @import("std");
 const boolGenerate = @import("bool_generate.zig").boolGenerate;
 
-const ourRng = @import("utils.zig").ourRng;
 const boolCountOnes = @import("count_ones.zig").boolCountOnes;
 const boolMutation = @import("bool_mutation.zig").boolMutation;
 const boolCrossover = @import("bool_crossover.zig").boolCrossover;
 
 pub fn main() !void {
     const allocator = std.heap.page_allocator;
-    var prng: std.rand.DefaultPrng = try ourRng();
+    const prng = std.crypto.random;
 
     var argsIterator = try std.process.argsWithAllocator(allocator);
     defer argsIterator.deinit();
@@ -20,7 +19,7 @@ pub fn main() !void {
 
     const numStrings = 40000;
 
-    const chromosomes = try boolGenerate(allocator, prng.random(), stringLength, numStrings);
+    const chromosomes = try boolGenerate(allocator, prng, stringLength, numStrings);
 
     var results = std.ArrayList([]const bool).init(allocator);
     var fitness = std.ArrayList(u32).init(allocator);
@@ -29,9 +28,9 @@ pub fn main() !void {
         const firstChromosome = try allocator.dupe(bool, chromosomes[i]);
         const secondChromosome = try allocator.dupe(bool, chromosomes[i + 1]);
 
-        boolCrossover(prng.random(), firstChromosome, secondChromosome);
+        boolCrossover(prng, firstChromosome, secondChromosome);
 
-        boolMutation(firstChromosome, prng.random());
+        boolMutation(firstChromosome, prng);
         boolMutation(secondChromosome, prng.random());
 
         const fitness1 = boolCountOnes(firstChromosome);

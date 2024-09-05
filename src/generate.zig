@@ -1,6 +1,5 @@
 const std = @import("std");
 const expect = std.testing.expect;
-const ourRng = @import("utils.zig").ourRng;
 
 // function that generates a string array
 pub fn generate(allocator: std.mem.Allocator, random: std.rand.Random, string_length: u16, num_strings: u32) ![][]u8 {
@@ -19,7 +18,7 @@ test "generate" {
     const stringLength: u16 = 10;
     const numStrings: u32 = 10;
     const allocator = std.heap.page_allocator;
-    var prng = try ourRng();
+    const prng = std.crypto.random;
     const stringArray = try generate(allocator, prng.random(), stringLength, numStrings);
     try expect(stringArray[0].len == stringLength);
     try expect(stringArray[numStrings - 1].len == stringLength);

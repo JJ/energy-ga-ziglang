@@ -1,10 +1,9 @@
 const std = @import("std");
 const boolGenerate = @import("bool_generate.zig").boolGenerate;
-const ourRng = @import("utils.zig").ourRng;
 
 pub fn main() !void {
     const allocator = std.heap.page_allocator;
-    var prng: std.rand.DefaultPrng = try ourRng();
+    const prng = std.crypto.random;
 
     var argsIterator = try std.process.argsWithAllocator(allocator);
     defer argsIterator.deinit();

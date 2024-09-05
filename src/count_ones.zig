@@ -1,6 +1,5 @@
 const std = @import("std");
 const expect = std.testing.expect;
-const ourRng = @import("utils.zig").ourRng;
 
 // MaxOnes or CountOnes implementation
 pub inline fn countOnes(binaryString: []const u8) u32 {
@@ -20,7 +19,7 @@ pub inline fn boolCountOnes(binaryString: []const bool) u32 {
 }
 
 test "countOnes" {
-    var binaryString: []const u8 = "101010";
+    const binaryString: []const u8 = "101010";
     try expect(countOnes(binaryString) == 3);
 }
 

@@ -1,14 +1,13 @@
 const std = @import("std");
 const generate = @import("generate.zig").generate;
 
-const ourRng = @import("utils.zig").ourRng;
 const countOnes = @import("count_ones.zig").countOnes;
 const mutation = @import("mutation.zig").mutation;
 const crossover = @import("crossover.zig").crossover;
 
 pub fn main() !void {
     const allocator = std.heap.page_allocator;
-    var prng: std.rand.DefaultPrng = try ourRng();
+    const prng = std.crypto.random;
 
     var argsIterator = try std.process.argsWithAllocator(allocator);
     defer argsIterator.deinit();
@@ -29,10 +28,10 @@ pub fn main() !void {
         const firstChromosome = try allocator.dupeZ(u8, chromosomes[i]);
         const secondChromosome = try allocator.dupeZ(u8, chromosomes[i + 1]);
 
-        crossover(prng.random(), firstChromosome, secondChromosome);
+        crossover(prng, firstChromosome, secondChromosome);
 
-        mutation(firstChromosome, prng.random());
-        mutation(secondChromosome, prng.random());
+        mutation(firstChromosome, prng);
+        mutation(secondChromosome, prng);
 
         const fitness1 = countOnes(firstChromosome);
         const fitness2 = countOnes(secondChromosome);

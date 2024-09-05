@@ -1,11 +1,10 @@
 const std = @import("std");
 const expect = std.testing.expect;
-const ourRng = @import("utils.zig").ourRng;
 
 // Crossover operator that combines two strings, cutting them in two random points, interchanging the result
 pub inline fn boolCrossover(random: std.rand.Random, binary_string_1: []bool, binary_string_2: []bool) void {
-    var index = random.int(u32) % (binary_string_1.len - 1);
-    var len = 1 + random.int(u32) % (binary_string_1.len - index - 1);
+    const index = random.int(u32) % (binary_string_1.len - 1);
+    const len = 1 + random.int(u32) % (binary_string_1.len - index - 1);
 
     for (index..index + len) |i| {
         const bit: bool = binary_string_2[i];
@@ -15,7 +14,7 @@ pub inline fn boolCrossover(random: std.rand.Random, binary_string_1: []bool, bi
 }
 
 test "crossover" {
-    var prng = try ourRng();
+    const prng = std.crypto.random;
 
     const copy_binary_string_2 = [_]bool{ false, true, false, true, false, true, false };
     const copy_binary_string_1 = [_]bool{ true, false, true, false, true, false, true };
@@ -23,7 +22,7 @@ test "crossover" {
     for (0..1000) |_| {
         var binary_string_1 = [_]bool{ true, false, true, false, true, false, true };
         var binary_string_2 = [_]bool{ false, true, false, true, false, true, false };
-        boolCrossover(prng.random(), &binary_string_1, &binary_string_2);
+        boolCrossover(prng, &binary_string_1, &binary_string_2);
 
         try expect(copy_binary_string_1.len == binary_string_1.len);
         try expect(copy_binary_string_2.len == binary_string_2.len);

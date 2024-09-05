@@ -1,7 +1,7 @@
 const std = @import("std");
 const expect = std.testing.expect;
 
-// function that generates a string array
+// Random number generator used all over
 pub fn ourRng() !std.rand.DefaultPrng {
     return std.rand.DefaultPrng.init(blk: {
         var seed: u64 = undefined;
