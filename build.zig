@@ -1,11 +1,11 @@
 const std = @import("std");
 
-pub fn build(b: *std.build) void {
+pub fn build(b: *std.Build) void {
     const target = b.standardTargetOptions(.{});
     const optimize = b.standardOptimizeOption(.{});
 
     const tests = b.addTest(.{
-        .root_source_file = .{ .path = "src/my_library.zig" },
+        .root_source_file = b.path("src/my_library.zig"),
         .target = target,
         .optimize = optimize,
     });
@@ -18,7 +18,7 @@ pub fn build(b: *std.build) void {
     inline for (generators) |generator| {
         const exe = b.addExecutable(.{
             .name = generator,
-            .root_source_file = .{ .path = "src/" ++ generator ++ ".zig" },
+            .root_source_file = b.path("src/" ++ generator ++ ".zig"),
             .target = target,
             .optimize = .ReleaseFast,
             .single_threaded = true,
@@ -29,7 +29,7 @@ pub fn build(b: *std.build) void {
 
     const boolOps = b.addExecutable(.{
         .name = "bool_combined_ops",
-        .root_source_file = .{ .path = "src/bool_combined_ops.zig" },
+        .root_source_file = b.path("src/bool_combined_ops.zig"),
         .target = target,
         .optimize = .ReleaseFast,
         .single_threaded = true,
@@ -39,7 +39,7 @@ pub fn build(b: *std.build) void {
 
     const combined_ops = b.addExecutable(.{
         .name = "combined_ops",
-        .root_source_file = .{ .path = "src/combined_ops.zig" },
+        .root_source_file = b.path("src/combined_ops.zig"),
         .target = target,
         .optimize = .ReleaseFast,
         .single_threaded = true,
@@ -49,7 +49,7 @@ pub fn build(b: *std.build) void {
 
     const hiff = b.addExecutable(.{
         .name = "run_hiff",
-        .root_source_file = .{ .path = "src/run_hiff.zig" },
+        .root_source_file = b.path("src/run_hiff.zig"),
         .target = target,
         .optimize = .ReleaseFast,
         .single_threaded = true,
