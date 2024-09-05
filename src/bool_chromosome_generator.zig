@@ -15,7 +15,7 @@ pub fn main() !void {
 
     const numStrings = 40000;
 
-    const output = try boolGenerate(allocator, prng.random(), stringLength, numStrings);
+    const output = try boolGenerate(allocator, prng, stringLength, numStrings);
     std.debug.print("Generated {} strings of length {}\n", .{ numStrings, stringLength });
     defer {
         for (output) |str| allocator.free(str);

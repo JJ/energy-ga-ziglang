@@ -31,7 +31,7 @@ pub fn main() !void {
         boolCrossover(prng, firstChromosome, secondChromosome);
 
         boolMutation(firstChromosome, prng);
-        boolMutation(secondChromosome, prng.random());
+        boolMutation(secondChromosome, prng);
 
         const fitness1 = boolCountOnes(firstChromosome);
         const fitness2 = boolCountOnes(secondChromosome);

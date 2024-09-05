@@ -27,7 +27,7 @@ test "crossover" {
         const binary_string_2 = try allocator.dupeZ(u8, "0101010");
         defer allocator.free(binary_string_2);
 
-        crossover(prng.random(), binary_string_1, binary_string_2);
+        crossover(prng, binary_string_1, binary_string_2);
 
         try expect(copy_binary_string_1.len == binary_string_1.len);
         try expect(copy_binary_string_2.len == binary_string_2.len);

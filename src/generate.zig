@@ -19,7 +19,7 @@ test "generate" {
     const numStrings: u32 = 10;
     const allocator = std.heap.page_allocator;
     const prng = std.crypto.random;
-    const stringArray = try generate(allocator, prng.random(), stringLength, numStrings);
+    const stringArray = try generate(allocator, prng, stringLength, numStrings);
     try expect(stringArray[0].len == stringLength);
     try expect(stringArray[numStrings - 1].len == stringLength);
     // loop through all strings in StringArray to check that every element is either 1 or 0

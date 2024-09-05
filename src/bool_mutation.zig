@@ -11,7 +11,7 @@ test "mutation" {
     var boolString = [_]bool{ true, false, true, false, true, false };
     var copyBoolString = [_]bool{ true, false, true, false, true, false };
 
-    var random = std.crypto.random;
+    const random = std.crypto.random;
     boolMutation(&boolString, random);
     try expect(copyBoolString.len == boolString.len);
     std.debug.print("boolString: {any}\n", .{boolString});

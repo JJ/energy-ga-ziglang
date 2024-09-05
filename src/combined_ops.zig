@@ -19,7 +19,7 @@ pub fn main() !void {
 
     const numStrings = 40000;
 
-    const chromosomes = try generate(allocator, prng.random(), stringLength, numStrings);
+    const chromosomes = try generate(allocator, prng, stringLength, numStrings);
 
     var results = std.ArrayList([]const u8).init(allocator);
     var fitness = std.ArrayList(u32).init(allocator);
