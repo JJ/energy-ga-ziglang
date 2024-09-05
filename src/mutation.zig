@@ -15,8 +15,8 @@ test "mutation" {
     const copyBinaryString = try allocator.dupeZ(u8, "101010");
     defer allocator.free(copyBinaryString);
 
-    var random = std.crypto.random;
-    mutation(binaryString, random.random());
+    const random = std.crypto.random;
+    mutation(binaryString, random);
     try expect(copyBinaryString.len == binaryString.len);
     std.debug.print("binaryString: {s}\n", .{binaryString});
     try expect(!std.mem.eql(u8, copyBinaryString, binaryString));
