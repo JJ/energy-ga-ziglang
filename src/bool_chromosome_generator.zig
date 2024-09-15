@@ -5,7 +5,7 @@ const ourRng = @import("utils.zig").ourRng;
 pub fn main() !void {
     const allocator = std.heap.page_allocator;
     const prng: std.rand.DefaultPrng = try ourRng();
-
+    var rndGen = prng.random();
     var argsIterator = try std.process.argsWithAllocator(allocator);
     defer argsIterator.deinit();
 
@@ -17,7 +17,7 @@ pub fn main() !void {
 
     const numStrings = 40000;
 
-    const output = try boolGenerate(allocator, prng, stringLength, numStrings);
+    const output = try boolGenerate(allocator, rndGen, stringLength, numStrings);
     std.debug.print("Generated {} strings of length {}\n", .{ numStrings, stringLength });
     defer {
         for (output) |str| allocator.free(str);
