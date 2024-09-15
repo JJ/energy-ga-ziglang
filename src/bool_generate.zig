@@ -19,8 +19,8 @@ test "generate" {
     const stringLength: u16 = 10;
     const numStrings: u32 = 10;
     const allocator = std.heap.page_allocator;
-    const prng: std.rand.DefaultPrng = try ourRng();
-    var rndGen = prng.random();
+    var prng = try ourRng();
+    const rndGen = prng.random();
     const stringArray = try boolGenerate(allocator, rndGen, stringLength, numStrings);
     try expect(stringArray[0].len == stringLength);
     try expect(stringArray[numStrings - 1].len == stringLength);

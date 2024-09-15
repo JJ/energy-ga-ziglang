@@ -4,8 +4,8 @@ const ourRng = @import("utils.zig").ourRng;
 
 pub fn main() !void {
     const allocator = std.heap.page_allocator;
-    const prng: std.rand.DefaultPrng = try ourRng();
-    var rndGen = prng.random();
+    var prng: std.rand.DefaultPrng = try ourRng();
+    const rndGen = prng.random();
     var argsIterator = try std.process.argsWithAllocator(allocator);
     defer argsIterator.deinit();
 
