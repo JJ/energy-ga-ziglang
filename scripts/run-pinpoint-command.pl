@@ -10,11 +10,12 @@ use Utils qw(process_pinpoint_output);
 
 my $preffix = shift || die "I need a prefix for the data files";
 my $command = shift || die "I need a (single) command to run";
+my $data_dir = shift || "data";
 my $ITERATIONS = 30;
 my ($mon,$day,$hh,$mm,$ss) = localtime() =~ /(\w+)\s+(\d+)\s+(\d+)\:(\d+)\:(\d+)/;
 my $suffix = "$day-$mon-$hh-$mm-$ss";
 
-open my $fh, ">", "../../data/$preffix-$suffix.csv";
+open my $fh, ">", "$data_dir/$preffix-$suffix.csv";
 say $fh "Platform,size,GPU,PKG,seconds";
 
 for my $l ( qw(512 1024 2048) ) {
