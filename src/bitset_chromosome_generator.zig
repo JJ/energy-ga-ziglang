@@ -11,18 +11,11 @@ pub fn main() !void {
     _ = argsIterator.next(); // First argument is the program name
 
     const stringLenArg = argsIterator.next() orelse "512";
-
-    var bitsetType: type = undefined;
-    switch (stringLenArg) {
-        512 => bitsetType = std.bit_set.StaticBitSet(512),
-        1024 => bitsetType = std.bit_set.StaticBitSet(1024),
-        2048 => bitsetType = std.bit_set.StaticBitSet(2048),
-        else => return std.debug.print("Invalid string length\n", .{}),
-    }
+    const stringLength = try std.fmt.parseInt(u16, stringLenArg, 10);
 
     const numStrings = 40000;
-    const output = try generate(allocator, prng, bitsetType, numStrings);
 
+    const output = try generate(allocator, prng, std.bit_set.DynamicBitSet(stringLength), numStrings);
     defer allocator.free(output);
 
     const stdout = std.io.getStdOut().writer();
