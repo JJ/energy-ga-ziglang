@@ -14,7 +14,7 @@ pub fn build(b: *std.Build) void {
     const run_tests = b.addRunArtifact(tests);
     test_step.dependOn(&run_tests.step);
 
-    const generators = [3][]const u8{ "chromosome_generator", "bool_chromosome_generator", "bitset_chromosome_generator" };
+    const generators = [2][]const u8{ "chromosome_generator", "bool_chromosome_generator" };
     inline for (generators) |generator| {
         const exe = b.addExecutable(.{
             .name = generator,

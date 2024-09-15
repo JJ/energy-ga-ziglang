@@ -2,7 +2,7 @@ const std = @import("std");
 const expect = std.testing.expect;
 
 // function that generates a string array
-pub fn boolGenerate(allocator: std.mem.Allocator, random: std.rand.Random, string_length: u16, num_strings: u32) ![][]bool {
+pub fn boolGenerate(allocator: std.mem.Allocator, random: std.Random, string_length: u16, num_strings: u32) ![][]bool {
     var stringArray = try allocator.alloc([]bool, num_strings);
     for (0..num_strings) |i| {
         stringArray[i] = try allocator.alloc(bool, string_length);

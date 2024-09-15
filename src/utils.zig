@@ -2,10 +2,10 @@ const std = @import("std");
 const expect = std.testing.expect;
 
 // Random number generator used all over
-pub fn ourRng() !std.rand.DefaultPrng {
-    return std.rand.DefaultPrng.init(blk: {
+pub fn ourRng() !std.Random.DefaultPrng {
+    return std.Random.DefaultPrng.init(blk: {
         var seed: u64 = undefined;
-        try std.os.getrandom(std.mem.asBytes(&seed));
+        try std.posix.getrandom(std.mem.asBytes(&seed));
         break :blk seed;
     });
 }
