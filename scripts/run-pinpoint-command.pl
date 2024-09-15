@@ -10,7 +10,7 @@ use Utils qw(process_pinpoint_output);
 
 my $preffix = shift || die "I need a prefix for the data files";
 my $command = shift || die "I need a (single) command to run";
-my $ITERATIONS = 15;
+my $ITERATIONS = 30;
 my ($mon,$day,$hh,$mm,$ss) = localtime() =~ /(\w+)\s+(\d+)\s+(\d+)\:(\d+)\:(\d+)/;
 my $suffix = "$day-$mon-$hh-$mm-$ss";
 
