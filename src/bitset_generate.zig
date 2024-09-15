@@ -2,7 +2,7 @@ const std = @import("std");
 const expect = std.testing.expect;
 
 // function that generates a string array
-pub fn generate(allocator: std.mem.Allocator, random: std.rand.Random, comptime T: type, num_strings: u32) ![]T {
+pub fn generate(allocator: std.mem.Allocator, random: std.rand.Random, T: type, num_strings: u32) ![]T {
     var bitField = try allocator.alloc(T, num_strings);
     for (0..num_strings) |i| {
         for (0..bitField[i].capacity()) |j| {

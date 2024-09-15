@@ -11,6 +11,7 @@ pub fn main() !void {
     _ = argsIterator.next(); // First argument is the program name
 
     const stringLenArg = argsIterator.next() orelse "512";
+    std.debug.print("String length argument: {s}\n", .{stringLenArg});
     const stringLength = try std.fmt.parseInt(u16, stringLenArg, 10);
 
     const numStrings = 40000;
