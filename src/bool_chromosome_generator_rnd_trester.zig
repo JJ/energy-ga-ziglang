@@ -18,10 +18,10 @@ pub fn main() !void {
     const thisSeed: u64 = try createSeed();
     switch (rngArg) {
         0 => {
-            prng = std.Random.Isaac64.init(thisSeed).random();
+            prng = try std.Random.Isaac64.init(thisSeed).random();
         },
         1 => {
-            prng = std.Random.Pcg.init(thisSeed).random();
+            prng = try std.Random.Pcg.init(thisSeed).random();
         },
         else => {
             std.debug.print("Invalid argument: {}\n", .{rngArg});
