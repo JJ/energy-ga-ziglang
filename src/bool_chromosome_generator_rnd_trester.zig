@@ -25,6 +25,22 @@ pub fn main() !void {
             var temp = std.Random.Pcg.init(thisSeed);
             prng = temp.random();
         },
+        2 => {
+            var temp = std.Random.RomuTrio.init(thisSeed);
+            prng = temp.random();
+        },
+        3 => {
+            var temp = std.Random.Sfc64.init(thisSeed);
+            prng = temp.random();
+        },
+        4 => {
+            var temp = std.Random.Xoroshiro128.init(thisSeed);
+            prng = temp.random();
+        },
+        5 => {
+            var temp = std.Random.Xoshiro256.init(thisSeed);
+            prng = temp.random();
+        },
         else => {
             std.debug.print("Invalid argument: {}\n", .{rngArg});
             return;
