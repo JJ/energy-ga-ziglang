@@ -56,4 +56,14 @@ pub fn build(b: *std.Build) void {
     });
 
     b.installArtifact(hiff);
+
+    const randomGenerators = b.addExecutable(.{
+        .name = "rnd_tester",
+        .root_source_file = b.path("src/bool_chromosome_generator_rnd_tester.zig"),
+        .target = target,
+        .optimize = .ReleaseFast,
+        .single_threaded = true,
+    });
+
+    b.installArtifact(randomGenerators);
 }
