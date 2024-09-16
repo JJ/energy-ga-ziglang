@@ -15,7 +15,7 @@ my ($mon,$day,$hh,$mm,$ss) = localtime() =~ /(\w+)\s+(\d+)\s+(\d+)\:(\d+)\:(\d+)
 my $suffix = "$day-$mon-$hh-$mm-$ss";
 
 open my $fh, ">", "$data_dir/$preffix-$suffix.csv";
-say $fh "Platform,size,GPU,PKG,seconds";
+say $fh "size,GPU,PKG";
 
 for my $l ( 0..5 ) {
   my $total_seconds;
@@ -35,9 +35,19 @@ for my $l ( 0..5 ) {
     }
   } while ( $successful < $ITERATIONS );
 
+  my $average=$total_seconds/ $ITERATIONS;
+  my $baseline_output;
+  do {
+    $baseline_output = `pinpoint sleep $average 2>&1`;
+  } while ($baseline_output =~  /0.00\s+J/);
+  my ( $gpu, $pkg ) = $baseline_output =~ /(\d+\.\d+)\s+J/g;
   foreach  my $row (@results) {
-    say join(", ", @$row);
-    say $fh "$preffix, $l, ", join(", ", @$row);
+    my @gpu_pkg = @$row;
+    my $gpu_diff = $gpu_pkg[0] - $gpu;
+    say $fh $l, ", ",
+      $gpu_diff > 0 ?$gpu_diff:0,  ", " ,
+      $gpu_pkg[1]-$pkg;
   }
+
 }
 close $fh;
