@@ -14,7 +14,7 @@ pub fn main() !void {
     const rngArgStr = argsIterator.next() orelse "0";
     const rngArg = try std.fmt.parseInt(u16, rngArgStr, 10);
 
-    var prng: std.Random = undefined;
+    var prng = undefined;
     const thisSeed: u64 = try createSeed();
     switch (rngArg) {
         0 => {
@@ -28,7 +28,7 @@ pub fn main() !void {
             return;
         },
     }
-    const rndGen = prng.random();
+    const rndGen: std.Random = prng.random();
 
     const numStrings = 65535;
     const stringLength = 1024;
