@@ -14,26 +14,25 @@ pub fn main() !void {
     const rngArgStr = argsIterator.next() orelse "0";
     const rngArg = try std.fmt.parseInt(u16, rngArgStr, 10);
 
-    var prng = undefined;
+    var prng: std.Random = undefined;
     const thisSeed: u64 = try createSeed();
     switch (rngArg) {
         0 => {
-            prng = std.Random.Isaac64.init(thisSeed);
+            prng = std.Random.Isaac64.init(thisSeed).random();
         },
         1 => {
-            prng = std.Random.Pcg.init(thisSeed);
+            prng = std.Random.Pcg.init(thisSeed).random();
         },
         else => {
             std.debug.print("Invalid argument: {}\n", .{rngArg});
             return;
         },
     }
-    const rndGen: std.Random = prng.random();
 
     const numStrings = 65535;
     const stringLength = 1024;
 
-    const output = try boolGenerate(allocator, rndGen, stringLength, numStrings);
+    const output = try boolGenerate(allocator, prng, stringLength, numStrings);
     std.debug.print("Generated {} strings of length {}\n", .{ numStrings, stringLength });
     defer {
         for (output) |str| allocator.free(str);
