@@ -2,7 +2,7 @@ const std = @import("std");
 const expect = std.testing.expect;
 const ourRng = @import("utils.zig").ourRng;
 
-// function that generates a string array
+// function that generates a Boolean array, initializing it with random values
 pub fn boolGenerate(allocator: std.mem.Allocator, random: std.Random, string_length: u16, num_strings: u32) ![][]bool {
     var stringArray = try allocator.alloc([]bool, num_strings);
     for (0..num_strings) |i| {
