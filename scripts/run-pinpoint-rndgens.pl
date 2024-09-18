@@ -15,7 +15,7 @@ my ($mon,$day,$hh,$mm,$ss) = localtime() =~ /(\w+)\s+(\d+)\s+(\d+)\:(\d+)\:(\d+)
 my $suffix = "$day-$mon-$hh-$mm-$ss";
 
 open my $fh, ">", "$data_dir/$preffix-$suffix.csv";
-say $fh "size,GPU,PKG";
+say $fh "size,GPU,PKG,s";
 
 for my $l ( 0..5 ) {
   my $total_seconds;
@@ -46,7 +46,7 @@ for my $l ( 0..5 ) {
     my $gpu_diff = $gpu_pkg[0] - $gpu;
     say $fh $l, ", ",
       $gpu_diff > 0 ?$gpu_diff:0,  ", " ,
-      $gpu_pkg[1]-$pkg;
+      $gpu_pkg[1]-$pkg, ", ", $gpu_pkg[2];
   }
 
 }
