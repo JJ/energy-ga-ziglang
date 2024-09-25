@@ -1,9 +1,9 @@
 const std = @import("std");
-const generate = @import("generate.zig").generate;
+const generate = @import("string_generate.zig").generate;
 
 const countOnes = @import("count_ones.zig").countOnes;
-const mutation = @import("mutation.zig").mutation;
-const crossover = @import("crossover.zig").crossover;
+const mutation = @import("string_mutation.zig").mutation;
+const crossover = @import("string_crossover.zig").crossover;
 
 pub fn main() !void {
     const allocator = std.heap.page_allocator;

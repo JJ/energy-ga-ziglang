@@ -1,5 +1,5 @@
 const std = @import("std");
-const generate = @import("generate.zig").generate;
+const generate = @import("string_generate.zig").generate;
 
 const HIFF = @import("HIFF.zig").HIFF;
 

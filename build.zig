@@ -14,7 +14,7 @@ pub fn build(b: *std.Build) void {
     const run_tests = b.addRunArtifact(tests);
     test_step.dependOn(&run_tests.step);
 
-    const generators = [2][]const u8{ "chromosome_generator", "bool_chromosome_generator" };
+    const generators = [2][]const u8{ "string_chromosome_generator", "bool_chromosome_generator" };
     inline for (generators) |generator| {
         const exe = b.addExecutable(.{
             .name = generator,
@@ -38,8 +38,8 @@ pub fn build(b: *std.Build) void {
     b.installArtifact(boolOps);
 
     const combined_ops = b.addExecutable(.{
-        .name = "combined_ops",
-        .root_source_file = b.path("src/combined_ops.zig"),
+        .name = "string_combined_ops",
+        .root_source_file = b.path("src/string_combined_ops.zig"),
         .target = target,
         .optimize = .ReleaseFast,
         .single_threaded = true,
