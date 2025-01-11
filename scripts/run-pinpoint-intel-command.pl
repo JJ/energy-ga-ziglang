@@ -6,7 +6,7 @@ use warnings;
 use v5.14;
 
 use lib qw(lib ../lib ../../lib);
-use Utils qw(process_pinpoint_output);
+use Utils qw(process_pinpoint_intel_output);
 
 my $preffix = shift || die "I need a prefix for the data files";
 my $command = shift || die "I need a (single) command to run";
@@ -31,7 +31,7 @@ for my $l ( qw(512 1024 2048) ) {
     if ($gpu != 0 ) {
       $successful++;
       $total_seconds += $seconds;
-      say "$preffix, $l, $gpu ,$pkg";
+      say "$preffix, $l, $ram, $cores, $psys";
       push @results, [$ram, $cores, $psys, $seconds];
     }
   } while ( $successful < $ITERATIONS );
