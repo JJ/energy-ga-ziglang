@@ -42,7 +42,7 @@ sub process_pinpoint_intel_output {
       my ( $seconds ) = $output =~ /(\d+\.\d+) seconds/;
       return $ram, $cores, $psys, $gpu, $pkg, $seconds;
     } else {
-      return 0,0,0,0,0;
+      return 0 x 5;
     }
 }
 
